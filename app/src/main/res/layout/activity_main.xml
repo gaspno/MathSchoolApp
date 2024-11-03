@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back_login_gradient"
+    tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.35" />
+
+    <TextView
+        android:id="@+id/labelLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:text="@string/label_login"
+        android:textColor="@color/text_color_login"
+        app:layout_constraintBottom_toBottomOf="@+id/editText_LOGIN"
+        app:layout_constraintEnd_toStartOf="@+id/editText_LOGIN"
+        app:layout_constraintTop_toTopOf="@+id/editText_LOGIN" />
+
+    <TextView
+        android:id="@+id/labelPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_password"
+        android:textColor="@color/text_color_login"
+        app:layout_constraintBottom_toBottomOf="@+id/editText_PASSWORD"
+        app:layout_constraintEnd_toEndOf="@+id/labelLogin"
+        app:layout_constraintStart_toStartOf="@+id/labelLogin"
+        app:layout_constraintTop_toTopOf="@+id/editText_PASSWORD" />
+
+    <EditText
+        android:id="@+id/editText_LOGIN"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/EditTextHeight"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:hint="@string/hint_user"
+        android:inputType="text"
+        android:textColor="@color/text_color_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <EditText
+        android:id="@+id/editText_PASSWORD"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/EditTextHeight"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:hint="@string/hint_password"
+        android:inputType="text|textPassword"
+        android:textColor="@color/text_color_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_LOGIN" />
+
+    <Button
+        android:id="@+id/buttonLOGIN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/bg_select"
+        android:backgroundTintMode="src_in"
+        android:text="@string/button_text_login"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_PASSWORD" />
+
+    <Button
+        android:id="@+id/buttonGUEST"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_select"
+        android:textColor="@color/black"
+        android:text="@string/button_text_guest"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonGOOGLE"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/placeholder_google_gmail"
+        android:background="@drawable/bg_select"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/buttonLOGIN"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLOGIN" />
+
+    <Button
+        android:id="@+id/buttonREGISTER"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_select"
+        android:textColor="@color/black"
+        android:text="@string/placeholder_user_creation"
+        app:layout_constraintEnd_toEndOf="@+id/buttonGOOGLE"
+        app:layout_constraintStart_toStartOf="@+id/buttonGOOGLE"
+        app:layout_constraintTop_toBottomOf="@+id/buttonGOOGLE" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/back_select_gradient"
+        android:backgroundTintMode="src_in"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.52"
+        app:srcCompat="@drawable/mathschoollogo" />
+</androidx.constraintlayout.widget.ConstraintLayout>

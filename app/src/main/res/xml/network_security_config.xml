@@ -1,0 +1,5 @@
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">ec2-3-147-26-211.us-east-2.compute.amazonaws.com</domain>
+    </domain-config>
+</network-security-config>

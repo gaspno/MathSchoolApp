@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">MathSchool</string>
+    <string name="label_login">Usuário</string>
+    <string name="label_password">Senha</string>
+    <string name="hint_user">Digite Seu Login</string>
+    <string name="hint_password">Digite Sua Senha</string>
+    <string name="button_text_login">Entrar</string>
+    <string name="button_text_guest">Entrar sem usuário</string>
+    <string name="default_web_client_id">your google id client web</string>
+    <string-array name="years_school">
+        <item>Primeiro ano</item>
+        <item>Segundo ano</item>
+        <item>Terceiro ano</item>
+        <item>Quarto ano</item>
+    </string-array>
+    <string name="confirmation_button">Confirmar</string>
+    <string name="completedClass">Completar Aula</string>
+    <string name="placeholder_google_gmail">Entrar com Google</string>
+    <string name="placeholder_user_creation">Criar Usuário</string>
+    <string name="hint_email">Digite seu email</string>
+    <string name="select_year">Selecione o ano dos assuntos</string>
+    <string name="completedCongratulationsClass">Parabéns Aula Completada</string>
+    <string name="completedCongratulationsTest">Parabéns Teste Completado</string>
+    <string name="returnSelect">Retornar a Seleção de Aulas e Testes</string>
+    <string name="hint_name">Digite seu Nome</string>
+</resources>

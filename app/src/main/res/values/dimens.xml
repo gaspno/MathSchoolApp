@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="EditTextHeight">50dp</dimen>
+    <dimen name="heigthIndicators">40dp</dimen>
+    <dimen name="margin_progress_view" >12dp</dimen>
+    <dimen name="heigth_subject_view">350dp</dimen>
+    <dimen name="paddingLessonScreen">12dp</dimen>
+    <dimen name="question_space">12dp</dimen>
+    <dimen name="icon_user_tam">90dp</dimen>
+    <dimen name="creata_user_layout_heigth">480dp</dimen>
+    <dimen name="create_user_layout_width">320dp</dimen>
+</resources>

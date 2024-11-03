@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="question_elements">
+    <item name="android:layout_marginTop">10dp</item>
+    ... other things that your elements have in common
+    </style>
+</resources>

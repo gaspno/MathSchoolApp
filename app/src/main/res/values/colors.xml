@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="text_color_login">#F0EDEC</color>
+    <color name="school_theme">#0336F0</color>
+    <color name="progress_color">#10F800</color>
+    <color name="btn_pressed">#F0EDEC</color>
+    <color name="btn_focused">#0392F0</color>
+    <color name="btn_base">#10F800</color>
+</resources>
