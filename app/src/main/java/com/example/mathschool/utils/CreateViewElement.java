@@ -32,7 +32,7 @@ public class CreateViewElement {
         TextView textView=new TextView(context);
         textView.setBackgroundColor(Color.WHITE);
         textView.setTextSize(24 );
-        textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        textView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
         textView.setTextColor(Color.BLUE);
         textView.setText(text);
         return textView;

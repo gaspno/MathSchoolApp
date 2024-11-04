@@ -107,9 +107,17 @@ public class LessonView extends Fragment {
                 case "text":
                     v = CreateViewElement.getTextView(getContext(), value.substring(value.indexOf(" ")));
                     View finalV = v;
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                            ViewGroup.LayoutParams.WRAP_CONTENT, // Largura
+                            ViewGroup.LayoutParams.WRAP_CONTENT // Altura
+                    );
+                    params.setMargins(0,10,0,10);
+                    finalV.setLayoutParams(params);
                     getActivity().runOnUiThread(() -> {
                         layout.addView(finalV);
                     });
+
+
                     break;
                 case "video":
                     getActivity().runOnUiThread(() -> {

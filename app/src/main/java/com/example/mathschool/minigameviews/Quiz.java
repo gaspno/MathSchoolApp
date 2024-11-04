@@ -5,6 +5,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.text.Layout;
+import android.text.StaticLayout;
+import android.text.TextPaint;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -18,7 +21,7 @@ public class Quiz extends View {
 
     private Paint paint=new Paint();
     private QuizData data;
-    private Paint textPaint;
+    private TextPaint textPaint;
     float direction[][] ={{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0,0}};
     private boolean[] isPress=new boolean[]{false,false,false,false,false};
     private boolean isCorrect=false;
@@ -26,15 +29,17 @@ public class Quiz extends View {
     int choseAlternative =-1;
     private boolean isWrong=false;
     private boolean isFinishedAnswer=false;
+    private StaticLayout staticLayout;
 
     public Quiz(Context context, int width, int height, QuizData quizData) {
         super(context);
         this.setLayoutParams(new LinearLayout.LayoutParams(width,height));
         this.data=quizData;
-        textPaint = new Paint();
+        textPaint = new TextPaint();
         textPaint.setColor(Color.WHITE);
         textPaint.setTextAlign(Paint.Align.CENTER);
         paint.setColor(Color.BLACK);
+
         setClickable(true);
     }
 
@@ -55,7 +60,20 @@ public class Quiz extends View {
             paint.setColor(Color.BLACK);
         canvas.drawColor(Color.BLUE);
         canvas.drawRoundRect(new RectF(25,25,getWidth()-75, (float) getHeight() /2),50,50,paint);
-        canvas.drawText(data.getStatement(),(float) (25 + getWidth() - 75) /2,  (getHeight()/2+25)/2,textPaint);
+        staticLayout = new StaticLayout(
+                data.getStatement(),
+                textPaint,
+                getWidth()-50,
+                Layout.Alignment.ALIGN_NORMAL,
+                1.0f,
+                0,
+                false
+        );
+        canvas.save();
+        canvas.translate((float) (25 + getWidth() - 75) /2, (getHeight()/2+25)/2);
+        staticLayout.draw(canvas);
+        canvas.restore();
+
 
         for (int i = 0; i <4 ; i++) {
             float x1=(float) (getWidth() - 50) /20+ (float) (i* ((getWidth()-50)/4));

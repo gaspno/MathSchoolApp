@@ -35,15 +35,9 @@ public class SelectSchoolYear extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_school_year);
         buttonThread.start();
-        try {
-            buttonThread.join();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     private void setButtons() throws IOException {
-        Log.d("Thread","in process");
         LinearLayout linearLayout=findViewById(R.id.yearsList);
         //Obtém lista de "anos" escolares do back-end.
         List<SchoolYear> years= contentService.getYears().stream().collect(Collectors.toList());
@@ -62,7 +56,13 @@ public class SelectSchoolYear extends AppCompatActivity {
                 startActivity(intent);
             });
             b.setBackground(getDrawable(R.drawable.bg_select));
-            linearLayout.addView(b,params);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    linearLayout.addView(b,params);
+                }
+            });
+
         });
     }
 

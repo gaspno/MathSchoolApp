@@ -13,6 +13,7 @@
         android:layout_marginEnd="16dp"
         android:background="@color/school_theme"
         android:text="@string/returnSelect"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
