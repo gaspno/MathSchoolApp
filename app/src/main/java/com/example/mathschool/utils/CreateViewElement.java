@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 
+import com.example.mathschool.R;
 import com.example.mathschool.custom.CustomSchoolView;
 import com.example.mathschool.minigameviews.Quiz;
 import com.example.mathschool.minigameviews.RelationalValues;
@@ -30,10 +32,11 @@ public class CreateViewElement {
 
     public static TextView getTextView( Context context,String text){
         TextView textView=new TextView(context);
-        textView.setBackgroundColor(Color.WHITE);
-        textView.setTextSize(24 );
+        textView.setBackground(context.getDrawable(R.drawable.text_back));
+        textView.setTextSize(18);
         textView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
-        textView.setTextColor(Color.BLUE);
+        textView.setTextColor(Color.WHITE);
+        textView.setPadding(15,15,15,15);
         textView.setText(text);
         return textView;
     }

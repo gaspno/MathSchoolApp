@@ -28,7 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:text="@string/label_login"
-        android:textColor="@color/text_color_login"
+        android:textColor="@color/black"
+        android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="@+id/editText_LOGIN"
         app:layout_constraintEnd_toStartOf="@+id/editText_LOGIN"
         app:layout_constraintTop_toTopOf="@+id/editText_LOGIN" />
@@ -38,7 +39,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/label_password"
-        android:textColor="@color/text_color_login"
+        android:textColor="@color/black"
+        android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="@+id/editText_PASSWORD"
         app:layout_constraintEnd_toEndOf="@+id/labelLogin"
         app:layout_constraintStart_toStartOf="@+id/labelLogin"
@@ -53,7 +55,7 @@
         android:ems="10"
         android:hint="@string/hint_user"
         android:inputType="text"
-        android:textColor="@color/text_color_login"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
@@ -66,7 +68,7 @@
         android:ems="10"
         android:hint="@string/hint_password"
         android:inputType="text|textPassword"
-        android:textColor="@color/text_color_login"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_LOGIN" />
 
@@ -78,6 +80,7 @@
         android:layout_marginEnd="24dp"
         android:background="@drawable/bg_select"
         android:backgroundTintMode="src_in"
+        android:padding="5dp"
         android:text="@string/button_text_login"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,8 +92,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:background="@drawable/bg_select"
-        android:textColor="@color/black"
+        android:padding="5dp"
         android:text="@string/button_text_guest"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -100,8 +104,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/placeholder_google_gmail"
         android:background="@drawable/bg_select"
+        android:padding="5dp"
+        android:text="@string/placeholder_google_gmail"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/buttonLOGIN"
         app:layout_constraintTop_toBottomOf="@+id/buttonLOGIN" />
@@ -112,8 +117,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/bg_select"
-        android:textColor="@color/black"
+        android:padding="5dp"
         android:text="@string/placeholder_user_creation"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/buttonGOOGLE"
         app:layout_constraintStart_toStartOf="@+id/buttonGOOGLE"
         app:layout_constraintTop_toBottomOf="@+id/buttonGOOGLE" />

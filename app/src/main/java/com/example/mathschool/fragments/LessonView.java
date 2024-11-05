@@ -102,14 +102,14 @@ public class LessonView extends Fragment {
             View v;
             String type = value.substring(0, value.indexOf(" "));
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(getView().getWidth(), getView().getWidth());
-            layoutParams.setMargins(0, 0, 0, 100);
+            layoutParams.setMargins(0, 25, 0, 25);
             switch (type) {
                 case "text":
                     v = CreateViewElement.getTextView(getContext(), value.substring(value.indexOf(" ")));
                     View finalV = v;
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                            ViewGroup.LayoutParams.WRAP_CONTENT, // Largura
-                            ViewGroup.LayoutParams.WRAP_CONTENT // Altura
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT
                     );
                     params.setMargins(0,10,0,10);
                     finalV.setLayoutParams(params);
@@ -225,6 +225,8 @@ public class LessonView extends Fragment {
             }
         });
         Button finish = getButton();
+        finish.setBackground(getContext().getDrawable(R.drawable.text_back));
+        finish.setTextColor(Color.WHITE);
         getActivity().runOnUiThread(() -> layout.addView(finish));
         while (!finish.isShown());
         //direciona a activity ao topo do scroolview

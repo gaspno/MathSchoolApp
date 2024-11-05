@@ -59,7 +59,6 @@ public class TestView extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         questions = (ArrayList<Question>) getArguments().getSerializable("questions");
-        Log.d("Questions", questions.toString());
         return inflater.inflate(R.layout.fragment_test_view, container, false);
     }
     @Override
@@ -79,6 +78,7 @@ public class TestView extends Fragment {
 
     private void setupQuestion() {
         AtomicInteger checkableID=new AtomicInteger(0);
+        cardView.setCardBackgroundColor(Color.WHITE);
         alternativa1.setText(questions.get(questionIndex).getAlternativa1());
         alternativa2.setText(questions.get(questionIndex).getAlternativa2());
         alternativa3.setText(questions.get(questionIndex).getAlternativa3());
@@ -100,9 +100,11 @@ public class TestView extends Fragment {
             setColorOptions(alternativa4.getId());
         });
         questionText.setText(questions.get(questionIndex).getEnunciado());
+        questionText.setTextColor(Color.BLACK);
         confirm.setOnClickListener(v -> {
             if (questions.get(questionIndex).getIndexRespostaCorreta()==(checkableID.get())) {
                 cardView.setCardBackgroundColor(Color.GREEN);
+                questionText.setTextColor(Color.BLACK);
                 if (questionIndex == questions.size() - 1) {
                     if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                         new Thread(() -> {
@@ -174,6 +176,7 @@ public class TestView extends Fragment {
                 }
             }else {
                 cardView.setCardBackgroundColor(Color.RED);
+
             }});
     }
     private void setColorOptions(int id) {

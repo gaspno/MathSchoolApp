@@ -8,4 +8,5 @@
     <color name="btn_pressed">#F0EDEC</color>
     <color name="btn_focused">#0392F0</color>
     <color name="btn_base">#10F800</color>
+    <color name="cardViewTextBackground">#00000000</color>
 </resources>

@@ -1,6 +1,7 @@
 package com.example.mathschool;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -50,6 +51,7 @@ public class SelectSchoolYear extends AppCompatActivity {
         years.forEach(y->{
             Button b=new Button(this);
             b.setText(y.getName());
+            b.setTextColor(Color.BLACK);
             b.setOnClickListener(v -> {
                 Intent intent=new Intent(getApplicationContext(), ProgressActivity.class);
                 intent.putExtra("year",y.getName());
