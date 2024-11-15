@@ -145,6 +145,7 @@ public class TestView extends Fragment {
                                     });
                                     TextView testNameText = dialog.findViewById(R.id.classNAMETextView);
                                     testNameText.setText(getArguments().getString("subject"));
+                                    dialog.setCancelable(false);
                                     dialog.show();
                                 });
                             } catch (IOException e) {
@@ -167,6 +168,7 @@ public class TestView extends Fragment {
                             });
                             TextView testNameText = dialog.findViewById(R.id.classNAMETextView);
                             testNameText.setText(getArguments().getString("subject"));
+                            dialog.setCanceledOnTouchOutside(false);
                             dialog.show();
                         });
                     }

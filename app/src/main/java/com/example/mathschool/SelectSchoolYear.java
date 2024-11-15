@@ -68,9 +68,5 @@ public class SelectSchoolYear extends AppCompatActivity {
         });
     }
 
-    @NonNull
-    @Override
-    public OnBackInvokedDispatcher getOnBackInvokedDispatcher() {
-        return super.getOnBackInvokedDispatcher();
-    }
+
 }

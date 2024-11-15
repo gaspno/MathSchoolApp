@@ -295,6 +295,7 @@ public class LessonView extends Fragment {
                                 });
                                 TextView classNameText=dialog.findViewById(R.id.classNAMETextView);
                                 classNameText.setText(getArguments().getString("subject"));
+                                dialog.setCanceledOnTouchOutside(false);
                                 dialog.show();
                             }
                         });
@@ -323,6 +324,7 @@ public class LessonView extends Fragment {
                         });
                         TextView classNameText=dialog.findViewById(R.id.classNAMETextView);
                         classNameText.setText(getArguments().getString("subject"));
+                        dialog.setCanceledOnTouchOutside(false);
                         dialog.show();
                     }
                 });
