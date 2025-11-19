@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 .requestIdToken(getString(R.string.default_web_client_id)).build();
         googleSignInClient= GoogleSignIn.getClient(this,go);
         currentUser = auth.getCurrentUser();
-        //verifica se já existe um usuário logado.
+        //Checks if a user is already logged in.
         if(currentUser != null){
             Intent intent=new Intent(MainActivity.this,SelectSchoolYear.class);
             startActivity(intent);
@@ -221,6 +221,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        new Thread(this::setListeners).start();
+        setListeners();
     }
 }

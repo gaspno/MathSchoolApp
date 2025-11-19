@@ -62,7 +62,6 @@ public class LessonView extends Fragment {
         while (!getView().isEnabled()) ;
         createView();
     };
-    private AtomicBoolean isLayoutAdd=new AtomicBoolean(false);
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,10 +94,8 @@ public class LessonView extends Fragment {
         layout.setPadding(25, 25, 25, 25);
         getActivity().runOnUiThread(() -> {
             scrollView.addView(layout);
-            isLayoutAdd.set(true);
-        });
-        while (!isLayoutAdd.get());
-        lesson.getContent_urls().forEach(value -> {
+            new android.os.Handler().postDelayed(() -> {
+                lesson.getContent_urls().forEach(value -> {
             View v;
             String type = value.substring(0, value.indexOf(" "));
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(getView().getWidth(), getView().getWidth());
@@ -224,12 +221,14 @@ public class LessonView extends Fragment {
                 default:
             }
         });
+            }, 100);
+        });
         Button finish = getButton();
         finish.setBackground(getContext().getDrawable(R.drawable.text_back));
         finish.setTextColor(Color.WHITE);
         getActivity().runOnUiThread(() -> layout.addView(finish));
         while (!finish.isShown());
-        //direciona a activity ao topo do scroolview
+        //directs the activity to the top of the scrollview
         getActivity().runOnUiThread(()->scrollView.fullScroll(View.FOCUS_UP));
     }
     private @NonNull Button getButton() {

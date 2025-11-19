@@ -209,8 +209,6 @@ public class ResolutionGuided extends View {
             float dY=y-yInit;
             xInit=x;
             yInit=y;
-            Log.d( " dY: "," "+y);
-            Log.d( "onTouchEvent dX: "," "+dX);
             switch (lineChoose){
                 case 0:
                     line1Directions[columnChoose][0]+=(dX);
