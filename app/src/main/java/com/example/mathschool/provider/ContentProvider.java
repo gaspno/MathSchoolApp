@@ -19,30 +19,7 @@ import java.util.List;
 
 public class  ContentProvider {
 
-    private static final String baseUrlContent="http://ec2-3-147-26-211.us-east-2.compute.amazonaws.com:8080/summary/";
-
-    /*public static List<Lesson> getLessons(String subjectName) throws IOException {
-        List<Lesson> lessons;
-        URL url = new URL(baseUrlContent+"class_list/"+subjectName);
-        HttpURLConnection httpURLConnection= (HttpURLConnection) url.openConnection();
-        httpURLConnection.setRequestMethod("GET");
-        httpURLConnection.setConnectTimeout(5000);
-        httpURLConnection.setReadTimeout(5000);
-        int responseCode = httpURLConnection.getResponseCode();
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            BufferedReader in = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
-            String inputLine;
-            StringBuilder response = new StringBuilder();
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            Gson gson = new Gson();
-            Type lessonListType = new TypeToken<List<Lesson>>(){}.getType();
-            lessons=gson.fromJson(response.toString(), lessonListType);
-            return lessons;
-        }
-        return null;
-    }*/
+    private static final String baseUrlContent="https://ec2-3-147-26-211.us-east-2.compute.amazonaws.com:8080/summary/";
 
     public static List<SchoolYear> getYears() throws IOException {
         List<SchoolYear> years;
@@ -67,29 +44,6 @@ public class  ContentProvider {
         return null;
     }
 
-
-    /*public static List<Test> getTestData(Subject subject) throws IOException {
-        List<Test> tests;
-        URL url = new URL(baseUrlContent+"test_list/"+subject);
-        HttpURLConnection httpURLConnection= (HttpURLConnection) url.openConnection();
-        httpURLConnection.setRequestMethod("GET");
-        httpURLConnection.setConnectTimeout(5000);
-        httpURLConnection.setReadTimeout(5000);
-        int responseCode = httpURLConnection.getResponseCode();
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            BufferedReader in = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
-            String inputLine;
-            StringBuilder response = new StringBuilder();
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            Gson gson = new Gson();
-            Type testListType = new TypeToken<List<Test>>(){}.getType();
-            tests=gson.fromJson(response.toString(), testListType);
-            return tests;
-    }
-        return null;
-}*/
 
     public static List<Subject> getSubjects(String year) throws IOException {
         List<Subject> subjects;
