@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ScrollView;
-//custom scrollview que permite parar momentaneamente o scrolling
+//Custom scrollview that allows you to momentarily stop scrolling
 public class CustomSchoolView extends ScrollView {
 
     private boolean isScrollable=true;

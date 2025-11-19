@@ -107,12 +107,6 @@ public class Quiz extends View {
         direction[4][3]=bY2;
         canvas.drawRect(bX1,bY1,bX2,bY2,paint);
         canvas.drawText("Confirm",((float) ((getWidth() - 50) /2)-((float) (getWidth() - 50) /4)+((float) (getWidth() - 50) /2)+((float) (getWidth() - 50) /4))/2,  getHeight()-((float) getHeight() /20),textPaint);
-
-        //create count
-
-        //generate alternatives
-
-        //detects chooses
     }
 
     @Override
@@ -120,8 +114,6 @@ public class Quiz extends View {
         if (!isFinishedAnswer){
         float x=event.getX();
         float y=event.getY();
-        //Log.d("isTouched Event Dir"," x:"+x+"        y: "+y);
-        //Log.d("isTouched Button dir","x1: "+direction[0][2]+" x2: "+direction[0][0]+" y1 :"+direction[0][3]+" y2: "+direction[0][1]);
         for (int i = 0; i <4; i++) {
             if (x>direction[i][0]&&x<direction[i][2]&&y>direction[i][1]&&y<direction[i][3]&&event.getAction()==MotionEvent.ACTION_DOWN){
                 isPress[i]=!isPress[i];

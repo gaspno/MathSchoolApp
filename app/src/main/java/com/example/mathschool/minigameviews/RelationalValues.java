@@ -106,30 +106,12 @@ public class RelationalValues extends View {
             canvas.drawRoundRect(new RectF(x1,y1,x2,y2 ),10,10,paint);
             canvas.drawText(data.getColumn2()[i], (x1+x2)/2,  y2,textPaint);
         }
-       /* float bX1= (float) ((getWidth() - 50) /2)-(float) (getWidth() - 50)/4;
-        float bY1= getHeight()-((float) getHeight() /8);
-        float bX2= ((float) (getWidth() - 50) /2)+((float) (getWidth() - 50) /4);
-        float bY2=getHeight()-((float) getHeight() /20);
-        confirmButtonDirections[0]=bX1;
-        confirmButtonDirections[1]=bY1;
-        confirmButtonDirections[2]=bX2;
-        confirmButtonDirections[3]=bY2;
-        if (isConfirmPressed){
-            paint.setColor(Color.GREEN);
-        }else {
-            paint.setColor(Color.BLACK);
-        }
-        canvas.drawRect(bX1,bY1,bX2,bY2,paint);*/
-
-
     }
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (!allTrue){
         float x=event.getX();
         float y=event.getY();
-        //Log.d("isTouched Event Dir"," x:"+x+"        y: "+y);
-        //Log.d("isTouched Button dir","x1: "+direction[0][2]+" x2: "+direction[0][0]+" y1 :"+direction[0][3]+" y2: "+direction[0][1]);
         for (int i = 0; i <4; i++) {
             if (x>column1Directions[i][0]&&x<column1Directions[i][2]&&y>column1Directions[i][1]&&y<column1Directions[i][3]&&event.getAction()==MotionEvent.ACTION_DOWN&&!isPressOrConfirmedColumn1[1][i]){
                 if (firstSelect!=-1){
@@ -137,7 +119,6 @@ public class RelationalValues extends View {
                 }
                 isPressOrConfirmedColumn1[0][i]=!isPressOrConfirmedColumn1[0][i];
                 firstSelect=i;
-                //Log.d("isTouchedOk","????");
                 invalidate();
             }
         }
@@ -148,20 +129,9 @@ public class RelationalValues extends View {
                 }
                 isPressOrConfirmedColumn2[0][i]=!isPressOrConfirmedColumn2[0][i];
                 secondSelect = i;
-
-                //Log.d("isTouchedOk","????");
                 invalidate();
             }
         }
-
-     /*   if (x>confirmButtonDirections[0]&&x<confirmButtonDirections[2]&&y>confirmButtonDirections[1]&&y<confirmButtonDirections[3]&&event.getAction()==MotionEvent.ACTION_DOWN){
-            isConfirmPressed=true;
-            invalidate();
-        }
-        if (x>confirmButtonDirections[0]&&x<confirmButtonDirections[2]&&y>confirmButtonDirections[1]&&y<confirmButtonDirections[3]&&event.getAction()==MotionEvent.ACTION_UP){
-            isConfirmPressed=false;
-            invalidate();
-        }*/
         if (event.getAction()==MotionEvent.ACTION_UP){
             if (firstSelect!=-1&&secondSelect!=-1){
                 verifyCombination();
