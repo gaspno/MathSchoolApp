@@ -96,6 +96,7 @@ public class LessonView extends Fragment {
         getActivity().runOnUiThread(() -> {
             scrollView.addView(layout);
             scrollView.post(() -> {
+            new android.os.Handler().postDelayed(() -> {
                 lesson.getContent_urls().forEach(value -> {
             View v;
             String type = value.substring(0, value.indexOf(" "));
@@ -223,11 +224,13 @@ public class LessonView extends Fragment {
             }
         });
             });
+            }, 100);
         });
         Button finish = getButton();
         finish.setBackground(getContext().getDrawable(R.drawable.text_back));
         finish.setTextColor(Color.WHITE);
         getActivity().runOnUiThread(() -> layout.addView(finish));
+        while (!finish.isShown());
         //directs the activity to the top of the scrollview
         getActivity().runOnUiThread(()->scrollView.fullScroll(View.FOCUS_UP));
     }
