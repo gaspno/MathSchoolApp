@@ -229,7 +229,7 @@ public class LessonView extends Fragment {
         finish.setTextColor(Color.WHITE);
         getActivity().runOnUiThread(() -> layout.addView(finish));
         while (!finish.isShown());
-        //direciona a activity ao topo do scroolview
+        //directs the activity to the top of the scrollview
         getActivity().runOnUiThread(()->scrollView.fullScroll(View.FOCUS_UP));
     }
     private @NonNull Button getButton() {
