@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
@@ -77,58 +78,52 @@ public class TestView extends Fragment {
     }
 
     private void setupQuestion() {
-        AtomicInteger checkableID=new AtomicInteger(0);
+        final int[] checkableID = {0};
         cardView.setCardBackgroundColor(Color.WHITE);
         alternativa1.setText(questions.get(questionIndex).getAlternativa1());
         alternativa2.setText(questions.get(questionIndex).getAlternativa2());
         alternativa3.setText(questions.get(questionIndex).getAlternativa3());
         alternativa4.setText(questions.get(questionIndex).getAlternativa4());
         alternativa1.setOnClickListener(v ->{
-            checkableID.set(1);
+            checkableID[0] = 1;
             setColorOptions(alternativa1.getId());
         });
         alternativa2.setOnClickListener(v ->{
-            checkableID.set(2);
+            checkableID[0] = 2;
             setColorOptions(alternativa2.getId());
         });
         alternativa3.setOnClickListener(v ->{
-            checkableID.set(3);
+            checkableID[0] = 3;
             setColorOptions(alternativa3.getId());
         });
         alternativa4.setOnClickListener(v ->{
-            checkableID.set(4);
+            checkableID[0] = 4;
             setColorOptions(alternativa4.getId());
         });
         questionText.setText(questions.get(questionIndex).getEnunciado());
         questionText.setTextColor(Color.BLACK);
         confirm.setOnClickListener(v -> {
-            if (questions.get(questionIndex).getIndexRespostaCorreta()==(checkableID.get())) {
+            if (questions.get(questionIndex).getIndexRespostaCorreta()==(checkableID[0])) {
                 cardView.setCardBackgroundColor(Color.GREEN);
                 questionText.setTextColor(Color.BLACK);
                 if (questionIndex == questions.size() - 1) {
                     if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-                        new Thread(() -> {
-                            AtomicReference<String> firebaseToken = new AtomicReference<>();
-                            AtomicBoolean isSetToken = new AtomicBoolean(false);
-                            AtomicReference<Integer> studentId = new AtomicReference<>();
-                            AtomicBoolean isSetId = new AtomicBoolean(false);
-                            user.getIdToken(true).addOnSuccessListener(getTokenResult -> {
-                                firebaseToken.set(getTokenResult.getToken());
-                                isSetToken.set(true);
-                            }).addOnFailureListener(e -> e.printStackTrace());
-                            firebaseDatabase.getReference()
-                                    .child("users").child(user.getUid()).child("id_back-end").get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
-                                        @Override
-                                        public void onSuccess(DataSnapshot dataSnapshot) {
-                                            Long l;
-                                            l = (Long) dataSnapshot.getValue();
-                                            studentId.set(l.intValue());
-                                            isSetId.set(true);
-                                        }
-                                    }).addOnFailureListener(e -> e.printStackTrace());
-                            while (!isSetId.get() || !isSetToken.get()) ;
+                        CompletableFuture<String> tokenFuture = new CompletableFuture<>();
+                        user.getIdToken(true).addOnSuccessListener(getTokenResult -> tokenFuture.complete(getTokenResult.getToken()));
+
+                        CompletableFuture<Integer> studentIdFuture = new CompletableFuture<>();
+                        firebaseDatabase.getReference()
+                                .child("users").child(user.getUid()).child("id_back-end").get()
+                                .addOnSuccessListener(dataSnapshot -> {
+                                    Long l = (Long) dataSnapshot.getValue();
+                                    studentIdFuture.complete(l.intValue());
+                                });
+
+                        CompletableFuture.allOf(tokenFuture, studentIdFuture).thenAccept(voidResult -> {
+                            String firebaseToken = tokenFuture.join();
+                            int studentId = studentIdFuture.join();
                             try {
-                                StudentRegister register = ProgressService.registerCompletedTest(studentId.get(), getArguments().getInt("testID"), firebaseToken.get());
+                                StudentRegister register = ProgressService.registerCompletedTest(studentId, getArguments().getInt("testID"), firebaseToken);
                                 Log.d("IsRegistered", register.toString());
                                 getActivity().runOnUiThread(() -> {
                                     Dialog dialog = new Dialog(getContext());
@@ -151,7 +146,7 @@ public class TestView extends Fragment {
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
-                        }).start();
+                        });
                     } else {
                         getActivity().runOnUiThread(() -> {
                             Dialog dialog = new Dialog(getContext());

@@ -51,7 +51,6 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.Screen
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.subject_progress_view, parent, false);
 
-        // Return a new holder instance
         return new Screen(view);
     }
 

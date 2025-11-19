@@ -44,6 +44,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
@@ -62,7 +63,6 @@ public class LessonView extends Fragment {
         while (!getView().isEnabled()) ;
         createView();
     };
-    private AtomicBoolean isLayoutAdd=new AtomicBoolean(false);
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,10 +95,8 @@ public class LessonView extends Fragment {
         layout.setPadding(25, 25, 25, 25);
         getActivity().runOnUiThread(() -> {
             scrollView.addView(layout);
-            isLayoutAdd.set(true);
-        });
-        while (!isLayoutAdd.get());
-        lesson.getContent_urls().forEach(value -> {
+            scrollView.post(() -> {
+                lesson.getContent_urls().forEach(value -> {
             View v;
             String type = value.substring(0, value.indexOf(" "));
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(getView().getWidth(), getView().getWidth());
@@ -224,17 +222,17 @@ public class LessonView extends Fragment {
                 default:
             }
         });
+            });
+        });
         Button finish = getButton();
         finish.setBackground(getContext().getDrawable(R.drawable.text_back));
         finish.setTextColor(Color.WHITE);
         getActivity().runOnUiThread(() -> layout.addView(finish));
-        while (!finish.isShown());
-        //direciona a activity ao topo do scroolview
+        //directs the activity to the top of the scrollview
         getActivity().runOnUiThread(()->scrollView.fullScroll(View.FOCUS_UP));
     }
-    private @NonNull Button getButton() {
-        Button finish=new Button(getContext());
-        finish.setText(R.string.completedClass);
+    private @NonNull View getButton() {
+        View finish = LayoutInflater.from(getContext()).inflate(R.layout.finish_button, null);
         DatabaseReference base= firebaseDatabase.getReference()
                 .child("users").child(user.getUid());
         finish.setOnClickListener(v -> {
@@ -251,37 +249,24 @@ public class LessonView extends Fragment {
                 isFinish=true;
             if (FirebaseAuth.getInstance().getCurrentUser()!=null){
             if (isFinish) {
-                new Thread(() -> {
-                    getView().setBackgroundColor(Color.GREEN);
-                    AtomicReference<String> firebaseToken = new AtomicReference<>();
-                    AtomicBoolean isSetToken=new AtomicBoolean(false);
-                    AtomicReference<Integer> studentId = new AtomicReference<>();
-                    AtomicBoolean isSetId=new AtomicBoolean(false);
-                    user.getIdToken(true).addOnSuccessListener(getTokenResult ->{
-                        firebaseToken.set(getTokenResult.getToken());
-                        isSetToken.set(true);
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            e.printStackTrace();
-                        }
-                    });
-                    base.child("id_back-end").get().addOnSuccessListener(dataSnapshot -> {
-                        Long l;
-                        l= (Long) dataSnapshot.getValue();
-                        studentId.set(l.intValue());
-                        isSetId.set(true);
-                    }).addOnFailureListener(e -> e.printStackTrace());
+                getView().setBackgroundColor(Color.GREEN);
+                CompletableFuture<String> tokenFuture = new CompletableFuture<>();
+                user.getIdToken(true).addOnSuccessListener(getTokenResult -> tokenFuture.complete(getTokenResult.getToken()));
 
+                CompletableFuture<Integer> studentIdFuture = new CompletableFuture<>();
+                base.child("id_back-end").get().addOnSuccessListener(dataSnapshot -> {
+                    Long l = (Long) dataSnapshot.getValue();
+                    studentIdFuture.complete(l.intValue());
+                });
 
-                    while (!isSetId.get()||!isSetToken.get());
+                CompletableFuture.allOf(tokenFuture, studentIdFuture).thenAccept(voidResult -> {
+                    String firebaseToken = tokenFuture.join();
+                    int studentId = studentIdFuture.join();
                     try {
-                        StudentRegister register= ProgressService.registerWatchedClass(studentId.get(), lesson.getId(), firebaseToken.get());
-                        Log.d("IsRegistered",register.toString());
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Dialog dialog=new Dialog(getContext());
+                        StudentRegister register = ProgressService.registerWatchedClass(studentId, lesson.getId(), firebaseToken);
+                        Log.d("IsRegistered", register.toString());
+                        getActivity().runOnUiThread(() -> {
+                            Dialog dialog = new Dialog(getContext());
                                 dialog.setContentView(R.layout.registered_dialog);
                                 Button button=dialog.findViewById(R.id.returnBUTTON);
                                 TextView textViewCongratulation=dialog.findViewById(R.id.textCongratulations);
@@ -297,12 +282,11 @@ public class LessonView extends Fragment {
                                 classNameText.setText(getArguments().getString("subject"));
                                 dialog.setCanceledOnTouchOutside(false);
                                 dialog.show();
-                            }
-                        });
+                            });
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                }).start();
+                });
             }else {
                 Toast.makeText(getContext(),"You need complete all quest",Toast.LENGTH_LONG).show();
             }
